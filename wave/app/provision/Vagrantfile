@@ -1,0 +1,84 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version '>= 1.6.0'
+VAGRANTFILE_API_VERSION = '2'
+
+require 'yaml'
+
+
+machines = YAML.load_file(File.join(File.dirname(__FILE__), 'config.yaml'))
+
+server_cfg = machines.find { |m| m['traffic'] == 'server' }
+client_cfg = machines.find { |m| m['traffic'] == 'client' }
+
+
+ls= File.read("/tmp/ultimo_switch.txt").strip
+
+
+$SCRIPT = <<-EOF
+server_ip=#{server_cfg['ip']}
+echo -e "$server_ip server" | sudo tee -a /etc/hosts
+client_ip=#{client_cfg['ip']}
+echo -e "$client_ip client" | sudo tee -a /etc/hosts
+EOF
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+
+  machines.each do |entrada|
+
+    next unless entrada['traffic']
+
+    config.vm.define entrada['traffic'] do |set|
+
+      set.vm.hostname = entrada['traffic']
+
+      if entrada['traffic'] == "server"
+        set.vm.box = "ifpb/wave-server"
+        set.vm.hostname = "wave-server"
+      else
+        set.vm.box = "wave/client"
+        set.vm.hostname = "wave-client"
+
+        set.vm.synced_folder "./logs", "/home/vagrant/wave/logs"
+      end
+
+      if entrada['traffic'] == "client"
+        set.vm.network "public_network", ip: entrada['ip'], bridge: "s1"
+        # set.vm.network "private_network", ip: "192.168.56.10"
+    
+      elsif entrada['traffic'] == "server"
+        set.vm.network "public_network", ip: entrada['ip'], bridge: ls
+        set.vm.network "private_network", ip: "192.168.56.11"
+
+
+      end
+
+      set.vm.provider "virtualbox" do |vb|
+        vb.memory = entrada['ram']
+        vb.cpus = entrada['vcpu']
+      end
+
+      set.vm.provision "shell", inline: $SCRIPT
+    end
+  end
+
+  # config.vm.define "mininet" do |mn|
+  #   mn.vm.box = "wave-mininet/wave-mininet"
+  #   mn.vm.hostname = "wave-mininet"
+
+  #   mn.vm.network "public_network",
+  #                 auto_config: false,
+  #                 bridge: "br0"
+        
+  #   mn.vm.network "public_network",
+  #                 auto_config: false,
+  #                 bridge: "br1"
+
+  #   mn.vm.provider "virtualbox" do |vb|
+  #     vb.memory = 1048
+  #     vb.cpus = 2
+  #   end
+  # end
+end

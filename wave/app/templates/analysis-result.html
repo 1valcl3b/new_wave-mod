@@ -1,0 +1,64 @@
+{% extends 'model.html' %} {% block content %}
+
+<div class="m-3" style="min-height: 410px">
+  <h3 class="text-center">Analysis Result</h3>
+  <div class="row mr-4">
+    <div class="col-sm-6">
+      <div class="row g-3">
+        <iframe
+          class="mb-3"
+          src="{{ url_grafana }}/d-solo/{{ dashboard_uid }}/wave-analysis-results?orgId=1&refresh=5s&from=now-30m&to=now&panelId=1"
+          width="550"
+          height="350"
+        ></iframe>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row g-3">
+        <iframe
+          class="mb-3"
+          src="{{ url_grafana }}/d-solo/{{ dashboard_uid }}/wave-analysis-results?orgId=1&refresh=5s&from=now-30m&to=now&panelId=2"
+          width="550"
+          height="350"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="row mr-4">
+    <div class="col-sm-6">
+      <div class="row g-3">
+        <iframe
+          class="mb-3"
+          src="{{ url_grafana }}/d-solo/{{ dashboard_uid }}/wave-analysis-results?orgId=1&refresh=5s&from=now-30m&to=now&panelId=3"
+          width="550"
+          height="350"
+        ></iframe>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row g-3">
+        <iframe
+          class="mb-3"
+          src="{{ url_grafana }}/d-solo/{{ dashboard_uid }}/wave-analysis-results?orgId=1&refresh=5s&from=now-30m&to=now&panelId=4"
+          width="550"
+          height="350"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <a
+    href="{{ url_grafana }}/login"
+    type="button"
+    target="_blank"
+    class="btn btn-secondary btn-sm"
+    >sign in grafana</a
+  >
+
+  <a
+    href="{{url_for('provision_down')}}"
+    type="button"
+    class="btn btn-danger btn-sm"
+    >destroy</a
+  >
+  {% endblock %}
+</div>

@@ -1,0 +1,395 @@
+{% extends 'model.html' %} {% block content %}
+
+<main>
+  <h4 class="text-center mb-4">{{ value }}</h4>
+  <form action="{{ url_for('index') }}" method="post">
+    <div class="row g-3">
+      <!-- TRAFFIC DESTINATION -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Traffic destination configuration</h5>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="ip-destination">IP address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="ip-destination"
+                  name="ipserver"
+                  placeholder="0.0.0.0"
+                />
+              </div>
+
+              <div class="form-check form-check-inline">
+                <label for="select-platform-destination">Select platform</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="plafmserver"
+                    id="docker-server"
+                    value="docker"
+                  />
+                  <label class="form-check-label" for="docker-server">Docker</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="plafmserver"
+                    id="vm-server"
+                    value="vm"
+                  />
+                  <label class="form-check-label" for="vm-server">VM</label>
+                </div>
+              </div>
+
+              <div class="align-content-lg-center ram-cpu-fields">
+                <label for="memoryserver" class="col-form-label">RAM Memory</label>
+
+                <datalist id="steplistmem">
+                  <option>4</option>
+                  <option>512</option>
+                  <option>1024</option>
+                  <option>2048</option>
+                  <option>3072</option>
+                  <option>4096</option>
+                  <option>5120</option>
+                  <option>6144</option>
+                  <option>8192</option>
+                </datalist>
+                <div class="col-md-2">
+                  <input
+                    type="range"
+                    class="form-control-range"
+                    name="memserver"
+                    id="memoryserver"
+                    value="4"
+                    min="4"
+                    step="2"
+                    max="8192"
+                    oninput="memserverValue.value=memoryserver.value"
+                    list="steplistmem"
+                  />
+                  <input
+                    type="number"
+                    placeholder="MB"
+                    name="memserverValue"
+                    id="memserverValue"
+                    value=""
+                    class="form-control"
+                    min="4"
+                    max="8192"
+                    step="2"
+                    oninput="memoryserver.value=memserverValue.value"
+                  />
+                </div>
+
+                <label for="vcpuserver" class="col-form-label">CPUs</label>
+
+                <datalist id="steplistvcpu">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>4</option>
+                  <option>6</option>
+                  <option>8</option>
+                </datalist>
+                <div class="col-md-2">
+                  <input
+                    type="range"
+                    class="form-control-range"
+                    id="vcpuserver"
+                    name="cpuserver"
+                    value="1"
+                    min="1"
+                    step="1"
+                    max="8"
+                    oninput="cpuserverValue.value=vcpuserver.value"
+                    list="steplistvcpu"
+                  />
+                  <input
+                    type="number"
+                    placeholder="vcpu"
+                    name="cpuserverValue"
+                    id="cpuserverValue"
+                    class="form-control"
+                    value=""
+                    min="1"
+                    step="1"
+                    max="8"
+                    oninput="vcpuserver.value=cpuserverValue.value"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRAFFIC SOURCE -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Traffic source configuration</h5>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="ip-source">IP address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="ip-source"
+                  name="ipclient"
+                  placeholder="0.0.0.0"
+                />
+              </div>
+
+              <div class="form-check form-check-inline">
+                <label for="">Select platform</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="plafmclient"
+                    id="docker"
+                    value="docker"
+                  />
+                  <label class="form-check-label" for="docker">Docker</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="plafmclient"
+                    id="vm"
+                    value="vm"
+                  />
+                  <label class="form-check-label" for="vm">VM</label>
+                </div>
+              </div>
+
+              <div class="align-content-lg-center ram-cpu-fields-client">
+                <label for="memoryclient" class="col-form-label">RAM Memory</label>
+                <div class="col-md-2">
+                  <input
+                    type="range"
+                    class="form-control-range"
+                    name="memclient"
+                    id="memoryclient"
+                    value="4"
+                    min="4"
+                    step="2"
+                    max="8192"
+                    oninput="memclientValue.value=memoryclient.value"
+                    list="steplistmem"
+                  />
+                  <input
+                    type="number"
+                    placeholder="MB"
+                    name="memclientValue"
+                    id="memclientValue"
+                    class="form-control"
+                    value=""
+                    min="4"
+                    max="8192"
+                    step="2"
+                    oninput="memoryclient.value=memclientValue.value"
+                  />
+                </div>
+
+                <label for="vcpuclient" class="col-form-label">CPUs</label>
+                <div class="col-md-2">
+                  <input
+                    type="range"
+                    class="form-control-range"
+                    id="vcpuclient"
+                    name="cpuclient"
+                    value="1"
+                    min="1"
+                    step="1"
+                    max="8"
+                    oninput="cpuclientValue.value=vcpuclient.value"
+                    list="steplistvcpu"
+                  />
+                  <input
+                    type="number"
+                    placeholder="vcpu"
+                    name="cpuclientValue"
+                    id="cpuclientValue"
+                    class="form-control"
+                    value=""
+                    min="1"
+                    step="1"
+                    max="8"
+                    oninput="vcpuclient.value=cpuclientValue.value"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEGUNDA LINHA COM DOIS CARDS LADO A LADO -->
+      <div class="row g-2 mt-3">
+        <!-- CARD: SELECT WAVE MODEL -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Select wave model</h5>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label" for="type-app"></label>
+                  <select
+                    class="form-select form-select-sm"
+                    id="model-select"
+                    name="select-model"
+                  >
+                    <option selected value="">Select model ...</option>
+                    <option value="sin">sinusoid</option>
+                    <option value="flashc">flashcrowd</option>
+                    <option value="step">stair step</option>
+                  </select>
+                </div>
+
+                <!-- parâmetros das ondas preservados -->
+                <div class="row g-2" id="sin">
+                  <div class="col-md-3">
+                    <label for="sinusoid" class="col-form-label">Amplitude</label>
+                    <input class="form-control" type="text" name="amp-sin" id="amplitude-sinusoid" placeholder="0" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="sinusoid" class="col-form-label">Period</label>
+                    <input class="form-control" type="text" name="ped-sin" id="period-sinusoid" placeholder="0" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="sinusoid" class="col-form-label">Duration</label>
+                    <input class="form-control" type="text" name="drn-sin" id="duration-sinusoid" placeholder="0" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="sinusoid" class="col-form-label">Lambd</label>
+                    <input class="form-control" type="text" name="lmd-sin" id="lambd-sinusoid" placeholder="0" />
+                  </div>
+                </div>
+
+                <div class="row g-2" id="flashc">
+                  <div class="col-md-3">
+                    <label for="flashcrowd" class="col-form-label">Normal Load</label>
+                    <input class="form-control" type="text" name="nload-flashc" id="normal-flashcrowd" placeholder="0" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="flashcrowd" class="col-form-label">Shock Level</label>
+                    <input class="form-control" type="text" name="shkl-flashc" id="shock-flashcrowd" placeholder="0" />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="flashcrowd" class="col-form-label">Const RanpDown</label>
+                    <input class="form-control" type="text" name="constrp-flashc" id="cranpdown-flashcrowd" placeholder="0" />
+                  </div>
+                </div>
+
+                <div class="row g-2" id="step">
+                  <div class="col-md-3">
+                    <label for="step" class="col-form-label">Interval</label>
+                    <input class="form-control" type="text" name="itvl-step" id="itvl-step" placeholder="0" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="step" class="col-form-label">Jump</label>
+                    <input class="form-control" type="text" name="jmp-step" id="jmp-step" placeholder="0" />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="step" class="col-form-label">Duration</label>
+                    <input class="form-control" type="text" name="drn-step" id="drn-step" placeholder="0" />
+                  </div>
+                </div>
+              </div>
+
+              <div id="err-msg"></div>
+              <div class="form-check form-check-inline mt-2" id="mb-field">
+                <input class="form-check-input" type="checkbox" name="microburst" id="microburst-check" />
+                <label for="microburst-check">Use microburst</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD: MININET NETWORK CONFIGURATION -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mininet Network Configuration</h5>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="topology-type" class="form-label">Topology Type</label>
+                  <select class="form-select form-select-sm" id="topology-type" name="topology-type">
+                    <option selected value="tree">Tree</option>
+                    <option value="linear">Linear</option>
+                    <option value="star">Star</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="depth" class="form-label">Depth</label>
+                  <input class="form-control" type="number" name="depth" id="depth" placeholder="3" min="1" />
+                </div>
+
+                <div class="col-md-3">
+                  <label for="branching" class="form-label">Branching</label>
+                  <input class="form-control" type="number" name="branching" id="branching" placeholder="2" min="1" />
+                </div>
+
+                <div class="col-md-3">
+                  <label for="switchs" class="form-label">Max Switchs</label>
+                  <input class="form-control" type="number" name="switchs" id="switchs" placeholder="7" min="1" />
+                </div>
+
+                <div class="col-md-12">
+                  <label class="form-label">Add delay to network?</label>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="use-delay"
+                      id="delay-no"
+                      value="no"
+                      checked
+                    />
+                    <label class="form-check-label" for="delay-no">No</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="use-delay"
+                      id="delay-yes"
+                      value="yes"
+                    />
+                    <label class="form-check-label" for="delay-yes">Yes</label>
+                  </div>
+                </div>
+
+                <div class="col-md-3 d-none" id="delay-field">
+                  <label for="delay" class="form-label">Link Delay (ms)</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    name="delay"
+                    id="delay"
+                    placeholder="10"
+                    min="0"
+                  />
+                </div>
+      <hr class="my-3" />
+      <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-primary btn-lg text-center" type="submit">
+          Submission test
+        </button>
+      </div>
+    </div>
+  </form>
+</main>
+
+<script src="../static/js/index.js"></script>
+
+{% endblock %}

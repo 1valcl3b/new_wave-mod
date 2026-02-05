@@ -1,0 +1,49 @@
+{% extends 'model.html' %} {% block content %}
+<div class="m-3" style="min-height: 410px">
+  <h3 class="text-center">Configuration result</h3>
+  <pre>{{ conf }}</pre>
+  <a href="/" type="button" class="btn btn-primary btn-sm" id="new-config">
+    new config
+  </a>
+  <a
+    href="{{url_for('provision_up')}}"
+    type="button"
+    class="btn btn-primary btn-sm"
+    id="provision-up"
+    >provision</a
+  >
+
+  <button
+    class="btn btn-primary btn-sm"
+    type="button"
+    disabled
+    id="provision-loading"
+    style="display: none"
+  >
+    <span
+      class="spinner-border spinner-border-sm"
+      role="status"
+      aria-hidden="true"
+    ></span>
+    Loading...
+  </button>
+</div>
+<!-- <a
+  href="{{url_for('execute_scenario')}}"
+  type="button"
+  onclick="funcao2()"
+  class="btn btn-secondary btn-sm"
+  >execute</a
+> -->
+<!-- <div class="m-3">
+  <div class="progress" id="progress-bar" style="display: none">
+    <div
+      id="probar"
+      class="progress-bar progress-bar-striped"
+      style="width: 0%"
+    ></div>
+  </div>
+</div> -->
+
+<script src="../static/js/config-result.js"></script>
+{% endblock %}

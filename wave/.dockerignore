@@ -1,0 +1,13 @@
+start-api.sh
+app-compose.sh
+Dockerfile
+docker-compose.yml
+venv
+api
+screenshots
+.gitignore
+.git
+.flake8
+.dockerignore
+README.md
+

@@ -1,0 +1,5 @@
+FROM httpd:latest
+WORKDIR /usr/local/apache2/htdocs
+COPY BigBuckBunny_320x180.mp4 video.mp4
+EXPOSE 80
+CMD ["httpd-foreground"]
