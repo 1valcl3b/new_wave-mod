@@ -59,10 +59,8 @@ def main():
 
     net.build()
     net.start()
-
-    # ✔ sinaliza que mininet subiu
+   
     SWITCH_FILE.write_text(switches[-1].name + "\n")
-    SWITCH_FILE.chmod(0o666)
 
     try:
         while True:

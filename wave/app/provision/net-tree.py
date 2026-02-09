@@ -88,7 +88,7 @@ def main():
     net.start()    
 
     SWITCH_FILE.write_text(switches[-1].name + "\n")
-    SWITCH_FILE.chmod(0o666)
+    
     
     # Path("/tmp/ultimo_switch").write_text(switches[-1].name + "\n")
     
