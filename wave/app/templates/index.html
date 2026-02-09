@@ -230,9 +230,7 @@
         </div>
       </div>
 
-      <!-- SEGUNDA LINHA COM DOIS CARDS LADO A LADO -->
       <div class="row g-2 mt-3">
-        <!-- CARD: SELECT WAVE MODEL -->
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
@@ -252,7 +250,7 @@
                   </select>
                 </div>
 
-                <!-- parâmetros das ondas preservados -->
+                
                 <div class="row g-2" id="sin">
                   <div class="col-md-3">
                     <label for="sinusoid" class="col-form-label">Amplitude</label>
@@ -312,7 +310,7 @@
           </div>
         </div>
 
-        <!-- CARD: MININET NETWORK CONFIGURATION -->
+        <!-- MININET NETWORK CONFIG -->
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
@@ -323,23 +321,37 @@
                   <select class="form-select form-select-sm" id="topology-type" name="topology-type">
                     <option selected value="tree">Tree</option>
                     <option value="linear">Linear</option>
-                    <option value="star">Star</option>
                   </select>
                 </div>
 
-                <div class="col-md-3">
-                  <label for="depth" class="form-label">Depth</label>
-                  <input class="form-control" type="number" name="depth" id="depth" placeholder="3" min="1" />
-                </div>
+                <!-- TREE CONFIG -->
+                <div id="tree-config" class="row g-3">
+
+                  <div class="col-md-3">
+                    <label class="form-label">Depth</label>
+                    <input class="form-control" type="number" name="depth" id="depth" placeholder="3" min="1" />
+                  </div>
 
                 <div class="col-md-3">
-                  <label for="branching" class="form-label">Branching</label>
-                  <input class="form-control" type="number" name="branching" id="branching" placeholder="2" min="1" />
-                </div>
+                    <label class="form-label">Branching</label>
+                    <input class="form-control" type="number" name="branching" id="branching" placeholder="2" min="1" />
+                  </div>
 
                 <div class="col-md-3">
-                  <label for="switchs" class="form-label">Max Switchs</label>
-                  <input class="form-control" type="number" name="switchs" id="switchs" placeholder="7" min="1" />
+                    <label class="form-label">Max Switchs</label>
+                    <input class="form-control" type="number" name="switchs" id="switchs" placeholder="7" min="1" />
+                  </div>
+
+                </div>
+
+                <!-- LINEAR CONFIG -->
+                <div id="linear-config" class="row g-3 d-none">
+
+                  <div class="col-md-3">
+                    <label class="form-label">Number of Switches</label>
+                    <input class="form-control" type="number" name="linear_switchs" id="linear_switchs" placeholder="5" min="1" />
+                </div>
+
                 </div>
 
                 <div class="col-md-12">

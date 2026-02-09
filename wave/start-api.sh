@@ -27,7 +27,7 @@ if [ -d venv ]; then
    pip3 freeze | grep -E "flask-restx" > /dev/null
    if [ ! $? -ne 0 ]; then
       echo "📦  Installing API dependencies... "
-      pip3 install flask flask-restx python-dotenv requests > /dev/null
+      pip3 install flask flask-restx python-dotenv requests pyaml > /dev/null
    fi
 else
    echo "🕒 Creating Python virtual environment... "
@@ -40,4 +40,6 @@ else
 fi
 
 echo -e "🔛  Start API in port 8181\n"
+
 python3 api/api.py
+#sudo ./venv/bin/python3 api/api.py

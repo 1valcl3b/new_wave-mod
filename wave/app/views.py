@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from provision.confYaml import ConfYaml
 
 
+
 def configure(app):
 
     path_app = Path(os.path.abspath("app"))
@@ -40,21 +41,33 @@ def configure(app):
 
 """
 
-        # bloco maininet
+            # bloco mininet
+            topology_type = request.form.get("topology-type")
             delay = request.form.get("delay")
 
-            conf_topology = f"""\
-            
+            conf_topology = f"""           
 - topology:
-    type: "{request.form.get('topology-type')}"
+    type: "{topology_type}"
+"""
+
+            
+            if topology_type == "tree":
+                conf_topology += f"""\
     depth: "{request.form.get('depth')}"
     branching: "{request.form.get('branching')}"
     max_switches: "{request.form.get('switchs')}"
 """
+
+            
+            elif topology_type == "linear":
+                conf_topology += f"""\
+    num_switches: "{request.form.get('linear_switchs')}"
+"""
+            
             if delay and delay.isdigit() and int(delay) > 0:
                 conf_topology += f"""\
     delay: "{delay}"
-"""        
+"""
 
         if (request.form.get('select-model') == 'sin'):
 

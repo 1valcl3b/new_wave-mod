@@ -7,6 +7,11 @@ from mininet.cli import CLI
 from mininet.clean import cleanup
 from pathlib import Path
 
+
+BASE_DIR = Path(__file__).resolve().parent
+CONFIG_FILE = BASE_DIR / "config.yaml"
+SWITCH_FILE = Path("/tmp/ultimo_switch.txt")
+
 def montar_arvore(net, depth, branching, max_switches, delay):
     contador = 0
     switches = []
@@ -18,11 +23,7 @@ def montar_arvore(net, depth, branching, max_switches, delay):
 
         nome = f"s{contador + 1}"
 
-        sw = net.addSwitch(
-            nome,
-            cls=OVSSwitch,
-            failMode='standalone'
-        )
+        sw = net.addSwitch(nome,cls=OVSSwitch,failMode='standalone')
 
         switches.append(sw)
         contador += 1
@@ -51,7 +52,10 @@ def montar_arvore(net, depth, branching, max_switches, delay):
 def main():
     cleanup()
 
-    with open("config.yaml") as f:
+    if not CONFIG_FILE.exists():
+        raise Exception(f"Config file not found: {CONFIG_FILE}")
+
+    with open(CONFIG_FILE) as f:
         cfg = yaml.safe_load(f)
 
     topologia = None
@@ -83,10 +87,13 @@ def main():
     net.build()
     net.start()    
 
+    SWITCH_FILE.write_text(switches[-1].name + "\n")
+    SWITCH_FILE.chmod(0o666)
+    
     # Path("/tmp/ultimo_switch").write_text(switches[-1].name + "\n")
     
-    with open("/tmp/ultimo_switch.txt", "w") as f:
-         f.write(switches[-1].name + "\n")
+    # with open("/tmp/ultimo_switch.txt", "w") as f:
+    #      f.write(switches[-1].name + "\n")
     
     #CLI(net)
     

@@ -108,3 +108,26 @@ if (delayYes && delayNo && delayField) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const topologySelect = document.getElementById("topology-type");
+
+    const treeConfig = document.getElementById("tree-config");
+    const linearConfig = document.getElementById("linear-config");
+
+    function toggleTopologyFields() {
+
+        const selected = topologySelect.value;
+
+        treeConfig.classList.add("d-none");
+        linearConfig.classList.add("d-none");
+
+        if (selected === "tree") treeConfig.classList.remove("d-none");
+        if (selected === "linear") linearConfig.classList.remove("d-none");
+    }
+
+    topologySelect.addEventListener("change", toggleTopologyFields);
+
+    toggleTopologyFields();
+});
