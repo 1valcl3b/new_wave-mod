@@ -6,18 +6,19 @@ TOPOLOGY=$1
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROVISION_DIR="$BASE_DIR"
 
-PID_FILE="/tmp/wave_mininet.pid"
+# PID_FILE="/tmp/wave_mininet.pid"
 LOG_FILE="/tmp/wave_mininet.log"
 SWITCH_FILE="/tmp/ultimo_switch.txt"
 
 echo "[WAVE] Starting Mininet topology: $TOPOLOGY"
 
 sudo mn -c  >/dev/null 2>&1
+sudo rm -f /tmp/ultimo_switch.txt
 
-if [ -f "$PID_FILE" ]; then
-    sudo kill $(cat $PID_FILE) || true
-    rm -f $PID_FILE
-fi
+# if [ -f "$PID_FILE" ]; then
+#     sudo kill $(cat $PID_FILE) || true
+#     rm -f $PID_FILE
+# fi
 
 case "$TOPOLOGY" in
     tree)
@@ -38,7 +39,7 @@ esac
 # ls -l "$PROVISION_DIR/$SCRIPT"
 
 sudo python3 "$PROVISION_DIR/$SCRIPT" > "$LOG_FILE" 2>&1 &
-echo $! > "$PID_FILE"
+# echo $! > "$PID_FILE"
 
 echo "[WAVE] Waiting ultimo_switch.txt..."
 
