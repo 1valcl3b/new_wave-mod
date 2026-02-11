@@ -36,7 +36,7 @@ else
    source venv/bin/activate
 
    echo "📦  Installing API dependencies... "
-   pip3 install flask flask-restx python-dotenv requests > /dev/null
+   pip3 install flask flask-restx python-dotenv requests pyaml > /dev/null
 fi
 
 echo -e "🔛  Start API in port 8181\n"
