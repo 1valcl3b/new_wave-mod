@@ -49,7 +49,7 @@ case $OPTION in
                 docker rmi -f ghcr.io/ifpb/new_wave/wave-vlc ghcr.io/ifpb/new_wave/wave-apache > /dev/null
                 cd app/provision
                 rm ./logs/* > /dev/null 2>&1
-                vagrant destroy -f > /dev/null
+                vagrant destroy -f > /dev/null 2>&1
                 echo "" > .env
                 #xhost -local:* > /dev/null
                 echo -e '🤝  Finished environment ...'

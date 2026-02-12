@@ -115,19 +115,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const treeConfig = document.getElementById("tree-config");
     const linearConfig = document.getElementById("linear-config");
+    const mininetFields = document.getElementById("mininet-config-fields");
 
     function toggleTopologyFields() {
 
         const selected = topologySelect.value;
 
+        // controla visibilidade geral do card
+        if (!selected) {
+            mininetFields.classList.add("d-none");
+            return;
+        }
+
+        mininetFields.classList.remove("d-none");
+
+        // controla tree vs linear
         treeConfig.classList.add("d-none");
         linearConfig.classList.add("d-none");
 
-        if (selected === "tree") treeConfig.classList.remove("d-none");
-        if (selected === "linear") linearConfig.classList.remove("d-none");
+        if (selected === "tree")
+            treeConfig.classList.remove("d-none");
+
+        if (selected === "linear")
+            linearConfig.classList.remove("d-none");
     }
 
     topologySelect.addEventListener("change", toggleTopologyFields);
 
     toggleTopologyFields();
 });
+
