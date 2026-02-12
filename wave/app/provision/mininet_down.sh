@@ -6,5 +6,5 @@ sudo mn -c  >/dev/null 2>&1
 
 sudo rm -f /tmp/ultimo_switch.txt
 
-echo "[WAVE] Mininet stopped 🚫"
+echo "[WAVE 🌊] Mininet stopped 🚫"
 

@@ -9,7 +9,8 @@ PROVISION_DIR="$BASE_DIR"
 
 SWITCH_FILE="/tmp/ultimo_switch.txt"
 
-echo "[WAVE 🌊] Starting Mininet topology: $TOPOLOGY"
+echo "[WAVE 🌊] Enter the ROOT user password, if you have already entered it, ignore this message."
+# echo "[WAVE 🌊] Starting Mininet topology: $TOPOLOGY"
 
 sudo mn -c  >/dev/null 2>&1
 sudo rm -f /tmp/ultimo_switch.txt
